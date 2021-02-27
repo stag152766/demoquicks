@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /*
      Интерфейсы чтобы искать данные в бд
      На заднем плане Hibernate генирирует sql запросы в бд
-     и возвращает объекты
+     и возвращает объект ы
      */
 
 

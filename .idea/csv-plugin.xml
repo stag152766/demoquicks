@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\demo\src\main\java\com\example\demo\annotations\ValidEmail.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\demo\src\main\java\com\example\demo\services\CustomUserDetailsService.java">
           <value>
             <Attribute>

@@ -20,7 +20,7 @@ public class ImageModel {
     // когда сохраняем фотографию то сохраняем либо юзеру либо посту
     // не передаем на клиент
     @JsonIgnore
-    private Long userId;
-    @JsonIgnore
     private Long postId;
+    @JsonIgnore
+    private Long userId;
 }

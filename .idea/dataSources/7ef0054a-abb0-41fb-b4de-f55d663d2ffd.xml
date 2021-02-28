@@ -1113,11 +1113,15 @@ SELECT|sys.sys_config
       <Position>2</Position>
       <DataType>int|0s</DataType>
     </column>
-    <index id="333" parent="288" name="FK859n2jvi8ivhui0rl0esws6o">
+    <column id="333" parent="288" name="roles">
+      <Position>3</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <index id="334" parent="288" name="FK859n2jvi8ivhui0rl0esws6o">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="334" parent="288" name="FK859n2jvi8ivhui0rl0esws6o">
+    <foreign-key id="335" parent="288" name="FK859n2jvi8ivhui0rl0esws6o">
       <ColNames>user_id</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>

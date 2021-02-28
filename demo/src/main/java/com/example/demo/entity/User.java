@@ -34,14 +34,14 @@ public class User implements UserDetails {
 
     @ElementCollection(targetClass = ERole.class)
     @CollectionTable(name = "user_role",
-            joinColumns = @JoinColumn(columnDefinition = "user_id"))
+            joinColumns = @JoinColumn(name = "user_id"))
     private Set<ERole> roles = new HashSet<>();
 
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user", orphanRemoval = true)
-    private List<Post> post = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(updatable = false)
@@ -50,7 +50,14 @@ public class User implements UserDetails {
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
-    public User(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public User() {
+    }
+
+    public User(Long id,
+                String username,
+                String email,
+                String password,
+                Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;

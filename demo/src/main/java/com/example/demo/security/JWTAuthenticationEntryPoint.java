@@ -13,18 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// если пользователь не авторизован, то ловим и возврашаем ошибку 401
+// класс ловит ошибки
 @Component
 public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+        // если пользователь не авторизован, то ловим и возврашаем ошибку 401
         InvalidLoginResponse loginResponse = new InvalidLoginResponse();
-        String jsonLoginResponce = new Gson().toJson(loginResponse);
+        String jsonLoginResponse = new Gson().toJson(loginResponse);
         httpServletResponse.setContentType(SecurityConstants.CONTENT_TYPE);
         httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-        httpServletResponse.getWriter().println(jsonLoginResponce);
+        httpServletResponse.getWriter().println(jsonLoginResponse);
 
     }
 }

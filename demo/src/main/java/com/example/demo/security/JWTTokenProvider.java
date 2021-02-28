@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import javax.naming.AuthenticationException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +19,7 @@ public class JWTTokenProvider {
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
-        Date expiryDate = new Date(now.getTime() + SecurityConstants.EXPIRATION_TYPE);
+        Date expiryDate = new Date(now.getTime() + SecurityConstants.EXPIRATION_TIME);
 
         String userId = Long.toString(user.getId());
 
@@ -33,7 +32,7 @@ public class JWTTokenProvider {
 
         return Jwts.builder()
                 .setSubject(userId)
-                .setClaims(claimsMap)
+                .addClaims(claimsMap)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)

@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
-public class JWTAuthenicationFilter extends OncePerRequestFilter {
+public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
-    public static final Logger LOG = LoggerFactory.getLogger(JWTAuthenicationFilter.class);
+    public static final Logger LOG = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
     @Autowired
     private JWTTokenProvider jwtTokenProvider;
@@ -33,7 +33,7 @@ public class JWTAuthenicationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String jwt = getJWTFromRequests(httpServletRequest);
+            String jwt = getJWTFromRequest(httpServletRequest);
             // парсинг и валидация токена для извлечения ид юзера
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)){
                 Long userId = jwtTokenProvider.getUserIdFromToken(jwt);
@@ -50,7 +50,7 @@ public class JWTAuthenicationFilter extends OncePerRequestFilter {
 
             }
         }catch (Exception ex){
-            LOG.error("Could not set authorization ");
+            LOG.error("Could not set user authentication ");
         }
 
         // добавим наш фильтр в цепочку фильров
@@ -59,7 +59,7 @@ public class JWTAuthenicationFilter extends OncePerRequestFilter {
 
 
     // берет токен из запроса, кот поступает на сервер
-    private String getJWTFromRequests(HttpServletRequest request){
+    private String getJWTFromRequest(HttpServletRequest request){
         String bearToken = request.getHeader(SecurityConstants.HEADER_STRING);
         if (StringUtils.hasText(bearToken) && bearToken.startsWith(SecurityConstants.TOKEN_PREFIX) ){
             return bearToken.split(" ")[1];

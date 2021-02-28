@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-// новый конфиг
+
 
 import com.example.demo.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +14,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+// новый конфиг
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
         securedEnabled = true,
         jsr250Enabled = true,
-        proxyTargetClass = true
+        prePostEnabled = true
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    // этот класс отвечает, если возникнет ошибка
     @Autowired
     private JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
@@ -34,18 +35,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // этот класс отвечает, если возникнет ошибка
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // разрешаем всем запросам /api/auth/*** иметь доступ к API
-                .antMatchers(SecurityConstants.SING_UP_URLS).permitAll()
+                .antMatchers(SecurityConstants.SING_UP_URLS)
+                .permitAll()
                 .anyRequest().authenticated(); // все остальные должны быть авторизованы
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -65,8 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JWTAuthenicationFilter jwtAuthenticationFilter(){
-        return new JWTAuthenicationFilter();
+    public JWTAuthenticationFilter jwtAuthenticationFilter(){
+        return new JWTAuthenticationFilter();
     }
 
 

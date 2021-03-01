@@ -24,6 +24,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\demo\src\main\java\com\example\demo\services\ImageUploadService.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\demo\src\main\java\com\example\demo\services\UserService.java">
           <value>
             <Attribute>

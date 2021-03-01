@@ -54,7 +54,7 @@ public class PostService {
         return postRepository.findAllByOrderByCreatedDateDesc();
     }
 
-    // поиск поста по юзеру
+    // поиск поста по ид и юзеру
     public Post getPostById(Long postId, Principal principal) {
         User user = getUserByPrincipal(principal);
         return postRepository.findPostByIdAndUser(postId, user)

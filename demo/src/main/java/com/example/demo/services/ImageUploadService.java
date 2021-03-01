@@ -4,12 +4,10 @@ package com.example.demo.services;
 import com.example.demo.entity.ImageModel;
 import com.example.demo.entity.Post;
 import com.example.demo.entity.User;
-import com.example.demo.exceptions.ImageNotFoundExceprion;
-import com.example.demo.exceptions.PostNotFoundException;
+import com.example.demo.exceptions.ImageNotFoundException;
 import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.repository.UserRepository;
-import org.aspectj.asm.AsmManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +45,7 @@ public class ImageUploadService {
 
     public ImageModel uploadImageToUser(MultipartFile file, Principal principal) throws IOException {
         User user = getUserByPrincipal(principal);
-        LOG.info("Uploading image profile to User {}", user.getId());
+        LOG.info("Uploading image profile to User {}", user.getEmail());
 
         ImageModel userProfileImage = imageRepository.findByUserId(user.getId()).orElse(null);
         // если у юзера есть фото, то удалить
@@ -97,7 +95,7 @@ public class ImageUploadService {
     // вернуть фото для поста
     public ImageModel getImageToPost(Long postId) {
         ImageModel imageModel = imageRepository.findByPostId(postId)
-                .orElseThrow(() -> new ImageNotFoundExceprion("Cannot find image to Post: " + postId));
+                .orElseThrow(() -> new ImageNotFoundException("Cannot find image to Post: " + postId));
 
         if (!ObjectUtils.isEmpty(imageModel)) {
             imageModel.setImageBytes(decompressBytes(imageModel.getImageBytes()));

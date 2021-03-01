@@ -35,7 +35,7 @@ public class PostService {
     }
 
     // создать пост
-    public Post create(PostDTO postDTO, Principal principal) {
+    public Post createPost(PostDTO postDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         Post post = new Post();
         post.setUser(user);

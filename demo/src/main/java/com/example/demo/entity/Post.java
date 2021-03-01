@@ -28,6 +28,7 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     // EAGER - когда загружаем пост срау загружаем все комменты
+    // REFRESH - когда удаляем пост, удаляются связанные комменты и фото
     @OneToMany(cascade = CascadeType.REFRESH,
     fetch = FetchType.EAGER, mappedBy = "post", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();

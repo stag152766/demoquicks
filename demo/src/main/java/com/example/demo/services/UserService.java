@@ -57,7 +57,7 @@ public class UserService {
         }
     }
 
-    // Principal объект securit содержит данные юзера
+    // Principal объект security содержит данные юзера
     // обновим все поля кроме username, оно уникальное
     public User updateUser(UserDTO userDTO, Principal principal){
         User user = getUserByPrincipal(principal);
@@ -68,6 +68,7 @@ public class UserService {
         // сохраняем в бд
         return userRepository.save(user);
     }
+
 
     // взять текущего юзера
     public User getCurrentUser(Principal principal){
@@ -81,4 +82,7 @@ public class UserService {
 
     }
 
+    public User getUserById(Long userId) {
+        return userRepository.findUserById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
 }

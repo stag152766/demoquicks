@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\demo\src\main\java\com\example\demo\payload\request\SignupRequest.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\demo\src\main\java\com\example\demo\security\JWTAuthenicationFilter.java">
           <value>
             <Attribute>
@@ -32,6 +39,13 @@
           </value>
         </entry>
         <entry key="\demo\src\main\java\com\example\demo\services\UserService.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\demo\src\main\java\com\example\demo\web\CommentService.java">
           <value>
             <Attribute>
               <option name="separator" value=";" />
